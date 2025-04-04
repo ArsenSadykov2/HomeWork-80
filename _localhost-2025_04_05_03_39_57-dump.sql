@@ -62,9 +62,9 @@ CREATE TABLE `items` (
   PRIMARY KEY (`id`),
   KEY `items_categories_fk` (`category_id`),
   KEY `items_rooms_fk` (`rooms_id`),
-  CONSTRAINT `items_categories_fk` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`),
-  CONSTRAINT `items_rooms_fk` FOREIGN KEY (`rooms_id`) REFERENCES `rooms` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+  CONSTRAINT `items_categories_fk` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `items_rooms_fk` FOREIGN KEY (`rooms_id`) REFERENCES `rooms` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +73,7 @@ CREATE TABLE `items` (
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` VALUES (3,2,3,'Компьютер',NULL,NULL,'2025-04-04 23:26:54'),(4,1,1,'Кондиционер',NULL,NULL,'2025-04-04 23:29:18'),(5,3,2,'Удобный диван',NULL,NULL,'2025-04-04 23:30:13');
+INSERT INTO `items` VALUES (3,2,3,'Компьютер',NULL,NULL,'2025-04-04 23:26:54'),(4,1,1,'Кондиционер',NULL,NULL,'2025-04-04 23:29:18'),(5,3,2,'Удобный диван',NULL,NULL,'2025-04-04 23:30:13'),(6,2,1,'test','Lorem',NULL,'2025-04-05 02:32:57');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +89,7 @@ CREATE TABLE `rooms` (
   `title` varchar(255) DEFAULT NULL,
   `description` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -98,7 +98,7 @@ CREATE TABLE `rooms` (
 
 LOCK TABLES `rooms` WRITE;
 /*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
-INSERT INTO `rooms` VALUES (1,'Офис № 1',NULL),(2,'Администрация',NULL),(3,'Учебная аудитория',NULL);
+INSERT INTO `rooms` VALUES (1,'Офис № 1','alsdjask'),(2,'Администрация',NULL),(3,'Учебная аудитория',NULL),(4,'test','Lorem'),(5,'test','Lorem'),(6,'test','Lorem'),(7,'test','Lorem');
 /*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -111,4 +111,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-04-04 23:48:57
+-- Dump completed on 2025-04-05  3:39:57

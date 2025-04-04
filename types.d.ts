@@ -1,4 +1,4 @@
-export interface Product {
+export interface Item {
     id: number;
     category_id: number;
     rooms_id: number;
@@ -32,4 +32,8 @@ export interface Category {
     id: number;
     title: string;
     description: string | null;
+}
+
+export interface DeleteId {
+    id: number;
 }

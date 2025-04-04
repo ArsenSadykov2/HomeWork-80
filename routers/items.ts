@@ -1,15 +1,16 @@
 import express from 'express';
-import {Place, Product, ProductWithoutId} from "../types";
+import {DeleteId, Place, Item, ProductWithoutId} from "../types";
 import {imagesUpload} from "../multer";
 import mysqlDb from "../mysqlDb";
-import {ResultSetHeader} from "mysql2";
+import {ResultSetHeader, RowDataPacket} from "mysql2";
+import roomRouter from "./rooms";
 
 const itemsRouter = express.Router();
 
 itemsRouter.get('/', async (req, res) => {
     const connection = await mysqlDb.getConnection();
     const [result] = await connection.query('SELECT * FROM items');
-    const products = result as Product[];
+    const products = result as Item[];
     res.send(products);
 });
 
@@ -17,7 +18,7 @@ itemsRouter.get('/:id', async (req, res) => {
     const id = req.params.id;
     const connection = await mysqlDb.getConnection();
     const [result] = await connection.query('SELECT * FROM items WHERE id = ?', [id]);
-    const product = result as Product[];
+    const product = result as Item[];
     res.send(product[0]);
 });
 
@@ -47,6 +48,14 @@ itemsRouter.post('/', imagesUpload.single('image'), async (req, res) => {
     const [oneProduct] = await connection.query('SELECT * FROM items WHERE id = ?', [id]);
     const products = oneProduct as Place[];
     res.send(products[0]);
+});
+
+itemsRouter.delete('/:id', async (req, res) => {
+    const id = req.params.id;
+    const connection = await mysqlDb.getConnection();
+    const [result] = await connection.query<ResultSetHeader>('DELETE FROM items WHERE id = ?',[id]);
+
+    res.json({message: `Category ${result} deleted successfully`});
 });
 
 export default itemsRouter;

@@ -1,8 +1,9 @@
     import express from 'express';
-    import {Place, PlaceWithoutId} from "../types";
+    import {DeleteId, Place, PlaceWithoutId} from "../types";
     import mysqlDb from "../mysqlDb";
     import {imagesUpload} from "../multer";
-    import {ResultSetHeader} from "mysql2";
+    import {ResultSetHeader, RowDataPacket} from "mysql2";
+    import categoriesRouter from "./categories";
 
     const roomRouter = express.Router();
 
@@ -43,6 +44,20 @@
         const [oneProduct] = await connection.query('SELECT * FROM rooms WHERE id = ?', [id]);
         const products = oneProduct as Place[];
         res.send(products[0]);
+    });
+
+    roomRouter.delete('/:id', async (req, res) => {
+        const id = req.params.id;
+        const connection = await mysqlDb.getConnection();
+        const [items] = await connection.query<RowDataPacket[]>('SELECT id FROM items WHERE category_id = ?',[id]);
+        const results = items as DeleteId[];
+        if(results.length > 0 ) {
+            res.status(400).send({error: 'You cannot delete this item'});
+        }
+
+        const [result] = await connection.query<ResultSetHeader>('DELETE FROM rooms WHERE id = ?',[id]);
+
+        res.json({message: `Category ${result} deleted successfully`});
     });
 
     export default roomRouter;
