@@ -3,7 +3,6 @@
     import mysqlDb from "../mysqlDb";
     import {imagesUpload} from "../multer";
     import {ResultSetHeader, RowDataPacket} from "mysql2";
-    import categoriesRouter from "./categories";
 
     const roomRouter = express.Router();
 

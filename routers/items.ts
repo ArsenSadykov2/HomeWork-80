@@ -1,9 +1,8 @@
 import express from 'express';
-import {DeleteId, Place, Item, ProductWithoutId} from "../types";
+import {Place, Item, ProductWithoutId} from "../types";
 import {imagesUpload} from "../multer";
 import mysqlDb from "../mysqlDb";
-import {ResultSetHeader, RowDataPacket} from "mysql2";
-import roomRouter from "./rooms";
+import {ResultSetHeader} from "mysql2";
 
 const itemsRouter = express.Router();
 
