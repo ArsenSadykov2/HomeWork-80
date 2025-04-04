@@ -8,7 +8,7 @@ const mysqlDb = {
             host: 'localhost',
             user: 'root',
             password: 'root',
-            database: 'HomeWork-80-api'
+            database: 'HomeWork80-api'
         });
     },
     async getConnection() {
